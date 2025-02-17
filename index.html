@@ -1,1 +1,66 @@
-<h1>Hello</h1>
+
+<head>
+    <title>Express</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function calculate(operation,input1,input2,output) {
+            const a=Number(document.getElementById(input1).value);
+            const b=Number(document.getElementById(input2).value);
+            const ans=document.getElementById(output)
+            axios.post(`http://localhost:3002/${operation}`,{
+                a,b
+            }).then(res=>{
+                ans.value=res.data.ans
+                setTimeout(()=>{
+                    document.getElementById(input1).value="";
+                    document.getElementById(input2).value="";
+                    document.getElementById(output).value="";
+                },5000)
+            }).catch((err)=>{
+                console.log('error',err)
+                alert('error')
+            })
+        }
+        
+    </script>
+</head>
+<body style="background-color: antiquewhite;">
+    <div style=" align-items: center;">
+    <div>
+    <h1>Addition</h1>
+    <input type="number" id="a" placeholder="give num" style="margin-right: 5px;">
+    <input type="number" id="b" placeholder="give num">
+    <button onclick="calculate('sum', 'a', 'b', 'ans_add')">Calculate</button>
+    <br>
+    <input type="number" id="ans_add" placeholder="Answer" style="margin-top: 10px;">
+   
+    </div>
+    <div>
+        <h1>Subtraction</h1>
+        <input type="number" id="c" placeholder="give num" style="margin-right: 5px;">
+        <input type="number" id="d" placeholder="give num">
+        <button onclick="calculate('sub', 'c', 'd', 'ans_sub')">Calculate</button>
+        <br>
+        <input type="number" id="ans_sub" placeholder="Answer" style="margin-top: 10px;">
+       
+        </div>
+        <div>
+            <h1>Multiplication</h1>
+            <input type="number" id="e" placeholder="give num" style="margin-right: 5px;">
+            <input type="number" id="f" placeholder="give num">
+            <button onclick="calculate('mul', 'e', 'f', 'ans_mul')">Calculate</button>
+            <br>
+            <input type="number" id="ans_mul" placeholder="Answer" style="margin-top: 10px;">
+           
+        </div>
+        <div>
+            <h1>Division</h1>
+            <input type="number" id="g" placeholder="give num" style="margin-right: 5px;">
+            <input type="number" id="h" placeholder="give num">
+            <button onclick="calculate('div', 'g', 'h', 'ans_div')">Calculate</button>
+            <br>
+            <input type="number" id="ans_div" placeholder="Answer" style="margin-top: 10px;">
+           
+    </div>
+</div>
+</body>
